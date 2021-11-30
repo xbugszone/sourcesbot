@@ -2,7 +2,7 @@
 
 @section('content')
     <!-- Masthead-->
-    <header class="masthead">
+    <header class="masthead" id="page-top">
         <div class="container px-4 px-lg-5 h-100">
             <div class="row gx-4 gx-lg-5 h-100 align-items-center justify-content-center text-center">
                 <div class="col-lg-8 align-self-end">
