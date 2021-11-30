@@ -125,8 +125,8 @@ class sourcesSeed extends Seeder
             'vendor' => 'Paracelsus',
             'country_id' => 4,
             'url' => 'http://paracelsuslabs.net',
-            'notes' => 'Intentionally underdoses. Delays in response times and providing tracking info.',
-            'rating' => 3,
+            'notes' => '',
+            'rating' => 2,
         ]);
         DB::table('sources')->insert([
             'abbr' => 'ReC',

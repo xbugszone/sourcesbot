@@ -9,14 +9,9 @@ use App\Models\Country;
 class SourcesController extends Controller
 {
     public function index() {
-
-        return view("sources.donate",[]);
+        return view("sources.index",[
+            "sources" => Source::with('Country')->orderBy('rating','DESC')->get()
+        ]);
     }
 
-    public function sources() {
-
-    return view("sources.index",[
-        "sources" => Source::with('Country')->get()
-    ]);
-}
 }
