@@ -12,6 +12,6 @@ class Source extends Model
 
     public function country(): HasOne
     {
-        return $this->hasOne('App\Country');
+        return $this->hasOne('App\Models\Country','id','country_id');
     }
 }
