@@ -27,7 +27,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/xbugszone/sourcesbot">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+    <img src="images/header.png" alt="Logo" width="80" height="80">
   </a>
 
 <h3 align="center">RC Sources</h3>
@@ -84,6 +84,7 @@
 
 -   [PHP 7.3](https://www.php.net)
 -   [Laravel 8.65](https://laravel.com)
+-   [MySQL](https://mysql.com) / [MariaDB](https://go.mariadb.com)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -93,18 +94,36 @@
 
 ### Prerequisites
 
-You will need to have the following installed:
+You will need to have the following installed for local development:
 
 -   PHP v(^7.3 or ^8.0)
 -   Composer v(2.1)
+-   MySQL/MariaDB
 
 #### Arch Based System:
+
+##### PHP/Composer:
 
 ```sh
 sudo pacman -Sy php composer
 ```
 
+##### MySQL/MariaDB
+
+MariaDB is the preferred open source alternative to MySQL and has _almost_ complete parity of features with MySQL:
+
+```sh
+sudo pacman -Sy mariadb
+```
+
+Follow the instructions for securing your local MariaDB instance [here](https://wiki.archlinux.org/title/MariaDB#Installation) _before_ running a local MariaDB instance.
+
+MySQL:
+Refer to [MySQL's website](https://www.mysql.com/) for instruction on how to install.
+
 #### Debian/Ubuntu Based System:
+
+##### PHP/Composer:
 
 ```sh
 sudo apt install wget php-cli php-zip unzip
@@ -123,11 +142,47 @@ Composer is a single file CLI application and can be installed either globally o
 -   To install composer locally enter:
     -   `sudo php composer-setup.php --install-dir=/path/to/project`
 
+##### MySQL/MariaDB
+
+MySQL:
+
+```sh
+sudo apt install mysql-server
+```
+
+MariaDB:
+
+```sh
+sudo apt install mariadb-server
+```
+
+After installing _either_ MariaDB or MySQL and _before_ starting a local instance of the database server, you’ll want to run the DBMS’s included security script. This script changes some of the less secure default options for things like remote root logins and sample users.
+
+```sh
+sudo mysql_secure_installation
+```
+
+#### Post Installation of PHP/Composer and MariaDB/MySQL
+
+Enable the appropriate database extensions for php. With super user privileges, edit `/etc/php/php.ini` and uncomment the following lines:
+
+```ini
+;extension=mysqli
+;extension=pdo_mysql
+```
+
+to
+
+```ini
+extension=mysqli
+extension=pdo_mysql
+```
+
 #### Other Systems
 
 Please refer to [PHP Website](https://www.php.net) and [GetComposer](https://getcomposer.org/) for guidance on how to install on your particular system.
 
-### Installation
+### Installation and configuration of development environment
 
 1. Clone the repo
     ```sh
@@ -141,8 +196,40 @@ Please refer to [PHP Website](https://www.php.net) and [GetComposer](https://get
     ```sh
     composer install
     ```
+4. Create database table taking care to note credentials
+    ```SQL
+    CREATE DATABASE [name];
+    ```
+5. Copy `.env.example` to `.env`
+    ```sh
+    cp .env.example .env
+    ```
+6. Configure `.env` using your favorite text editor and adjust settings accordingly
+    ```sh
+    DB_CONNECTION=mysql
+    DB_HOST=127.0.0.1
+    DB_PORT=3306
+    DB_DATABASE=[database name]
+    DB_USERNAME=[database username]
+    DB_PASSWORD=[database password]
+    ```
 
-<p align="right">(<a href="#top">back to top</a>)</p>
+7. Generate your application key (the following command updates your `.env` accordingly)
+    ```sh
+    php artisan key:generate
+    ```
+
+8. Generate and migrate tables
+    ```sh
+    php artisan migrate:fresh
+    ```
+
+9. Run a local instance
+    ```sh
+    php artisan serve
+    ```
+
+ <p align="right">(<a href="#top">back to top</a>)</p>
 
 <!-- USAGE EXAMPLES -->
 
@@ -161,7 +248,7 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 -   [] Feature 1
 -   [] Feature 2
 -   [] Feature 3
-    -   [] Nested Feature
+-   [] Nested Feature
 
 See the [open issues](https://github.com/xbugszone/sourcesbot/issues) for a full list of proposed features (and known issues).
 
@@ -229,9 +316,22 @@ Project Link: [https://github.com/xbugszone/sourcesbot](https://github.com/xbugs
 [linkedin-url]: https://linkedin.com/in/linkedin_username
 [product-screenshot]: images/screenshot.png
 
-````
+```
+
+```
 
 ```
 
 ```
-````
+
+```
+
+```
+
+```
+
+```
+
+```
+
+```
