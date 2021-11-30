@@ -118,7 +118,7 @@ Composer is a single file CLI application and can be installed either globally o
 -   To install Composer globally as a system-wide command that will be available for all users, simply place the file in a directory that is in the system PATH . Run the following command to install Composer in the /usr/local/bin directory:
 
     -   `sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer`
-    -   You can now use Composer by running composer in your terminal.
+    -   You can now use Composer by running `composer` in your terminal.
 
 -   To install composer locally enter:
     -   `sudo php composer-setup.php --install-dir=/path/to/project`
